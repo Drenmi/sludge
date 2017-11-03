@@ -2,6 +2,7 @@ const _ = require("lodash")
 
 const { Assertion, util } = require("chai")
 
+addSenseAssertion("NONE", "notice", "noticed")
 addSenseAssertion("SIGHT", "see", "saw")
 addSenseAssertion("HEARING", "hear", "heard")
 addSenseAssertion("TOUCH", "feel", "felt")
@@ -16,8 +17,8 @@ function addSenseAssertion(sense, presentTenseVerb, pastTenseVerb) {
 
     this.assert(
       didSense,
-      `expected character to see ${message}, but saw ${lastSensed}`,
-      `expected character to not see ${message}`
+      `expected character to ${presentTenseVerb} ${message}, but ${pastTenseVerb} ${lastSensed}`,
+      `expected character to not ${presentTenseVerb} ${message}`
     )
   },
   function() {
@@ -29,7 +30,7 @@ function addSenseAssertion(sense, presentTenseVerb, pastTenseVerb) {
 }
 
 function senseAssertion(character, sense, message) {
-  const lastSensed = _.find(character.impressions, (impression) => (impression.sense === "SIGHT"))
+  const lastSensed = _.find(character.impressions, (impression) => (impression.sense === sense))
   const lastMessage = (lastSensed) ? lastSensed.message : "nothing"
 
   return [lastSensed && lastMessage === message, lastMessage]
