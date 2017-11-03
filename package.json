@@ -1,6 +1,6 @@
 {
   "name": "sludge",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Sludge World",
   "main": "index.js",
   "scripts": {
@@ -10,6 +10,10 @@
     "MUD"
   ],
   "author": "Ted Johansson <drenmi@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Drenmi/sludge.git"
+  },
   "license": "MIT",
   "devDependencies": {
     "chai": "^4.1.2",
