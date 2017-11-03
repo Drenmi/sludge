@@ -4,7 +4,8 @@
   "description": "Sludge World",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --recursive"
+    "test": "mocha --recursive",
+    "lint": "eslint ."
   },
   "keywords": [
     "MUD"
