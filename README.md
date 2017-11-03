@@ -79,7 +79,18 @@ In this example, knocking on a door will result in a sensory event targeting sig
 
 #### Resolving Sensory Events
 
-All recipients may not perceive some event the same way. Upon resolution, `SensoryEvent`s therefore need to be contextualized with the point of view of the character experiencing it. This allows taking into account any circumstances of the recipient.
+All recipients may not perceive some event the same way. Upon resolution, `SensoryEvent`s therefore need to be contextualised with the point of view of the character experiencing it. This allows taking into account any circumstances of the recipient.
+
+**Example:**
+
+```javascript
+const event = SensoryEvent.create([
+  { sense: "SIGHT", magnitude: 40, message: "A small imp is hiding in a corner." }
+])
+const character = Character.build({ senses: { "SIGHT": { acuity: 50 } } })
+
+event.resolve(character)
+```
 
 ## Testing
 
