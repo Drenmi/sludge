@@ -13,10 +13,10 @@ const Character = Thing.define({
     isAlive: true,
     isAwake: true,
     senses: DEFAULT_SENSES,
-    messages: []
+    impressions: []
   },
   methods: {
-    send: function(event) { this.messages.push(event) }
+    send: function(event) { this.impressions.push(event) }
   }
 })
 

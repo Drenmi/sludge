@@ -2,6 +2,7 @@ const _ = require("lodash")
 
 const { Assertion, util } = require("chai")
 
+addSenseAssertion("NONE", "notice", "noticed")
 addSenseAssertion("SIGHT", "see", "saw")
 addSenseAssertion("HEARING", "hear", "heard")
 addSenseAssertion("TOUCH", "feel", "felt")
@@ -16,20 +17,20 @@ function addSenseAssertion(sense, presentTenseVerb, pastTenseVerb) {
 
     this.assert(
       didSense,
-      `expected character to see ${message}, but saw ${lastSensed}`,
-      `expected character to not see ${message}`
+      `expected character to ${presentTenseVerb} ${message}, but ${pastTenseVerb} ${lastSensed}`,
+      `expected character to not ${presentTenseVerb} ${message}`
     )
   },
   function() {
     util.flag(this, "sense", "SIGHT")
     // TODO: extract inflection methods
-    util.flag(this, "verb", presentTenseVerb)
-    util.flag(this, "pastVerb", pastTenseVerb)
+    util.flag(this, "presentTenseVerb", presentTenseVerb)
+    util.flag(this, "pastTenseVerb", pastTenseVerb)
   })
 }
 
 function senseAssertion(character, sense, message) {
-  const lastSensed = _.find(character.messages, (event) => (event.sense === "SIGHT"))
+  const lastSensed = _.find(character.impressions, (impression) => (impression.sense === sense))
   const lastMessage = (lastSensed) ? lastSensed.message : "nothing"
 
   return [lastSensed && lastMessage === message, lastMessage]
@@ -38,30 +39,30 @@ function senseAssertion(character, sense, message) {
 Assertion.addProperty("nothing", function() {
   const character = util.flag(this, "object")
   const sense = util.flag(this, "sense")
-  const verb = util.flag(this, "verb")
-  const pastVerb = util.flag(this, "pastVerb")
+  const presentTenseVerb = util.flag(this, "presentTenseVerb")
+  const pastTenseVerb = util.flag(this, "pastTenseVerb")
 
-  const lastSensed = _.find(character.messages, (event) => (event.sense === sense))
+  const lastSensed = _.find(character.impressions, (impression) => (impression.sense === sense))
   const lastMessage = (lastSensed) ? lastSensed.message : "nothing"
 
   this.assert(
     !lastSensed,
-    `expected character to ${verb} nothing, but ${pastVerb} ${lastMessage}`,
-    `expected character to not ${verb} nothing`
+    `expected character to ${presentTenseVerb} nothing, but ${pastTenseVerb} ${lastMessage}`,
+    `expected character to not ${presentTenseVerb} nothing`
   )
 })
 
 Assertion.addProperty("something", function() {
   const character = util.flag(this, "object")
   const sense = util.flag(this, "sense")
-  const verb = util.flag(this, "verb")
-  const pastVerb = util.flag(this, "pastVerb")
+  const presentTenseVerb = util.flag(this, "presentTenseVerb")
+  const pastTenseVerb = util.flag(this, "pastTenseVerb")
 
-  const lastSensed = _.find(character.messages, (event) => (event.sense === sense))
+  const lastSensed = _.find(character.impressions, (impression) => (impression.sense === sense))
 
   this.assert(
     lastSensed,
-    `expected character to ${verb} something, but ${pastVerb} nothing`,
-    `expected character to not ${verb} something`
+    `expected character to ${presentTenseVerb} something, but ${pastTenseVerb} nothing`,
+    `expected character to not ${presentTenseVerb} something`
   )
 })
