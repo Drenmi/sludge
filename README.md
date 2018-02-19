@@ -6,7 +6,7 @@ Sludge is a tool for building text based virtual worlds. It is inspired by old w
 
 *Note: This is very much work in progress. Many of the things outlines below are not yet implemented, and are subject to change at a moment's notice.*
 
-Sludge is intended for rapid creation of virtual worlds. It is designed to be fun to use, thus user productivity is a priority. Clean mental models and an expressive and intuitive public API are important design objectives. The framework is primarily data driven, with support for sophisticated users to extend it using custom code.
+Sludge is intended for rapid creation of virtual worlds. It is designed to be fun to use. User productivity is of top priority, and clean mental models and an expressive and intuitive public API are important design objectives. The framework is primarily data driven, with support for sophisticated users to extend it using custom code.
 
 ### Topography
 
@@ -16,7 +16,7 @@ To put a spanner in the works of an unfortunate adventurer, exits can be fitted 
 
 ### Command and Conquer
 
-A world would not be very interesting without being able to act upon it. Whether your inclination is exploring, socialising, or just mindless killing, you need means to express action. Sludge uses the concept of `Command`s to achieve this. A command is a high level concept used by world builders to bestow self efficacy on the players.
+A world would not be very interesting without the ability for characters to act upon it. Whether your inclination is exploring, socialising, or just mindless killing, you need means to express those actions. Sludge uses the concept of `Command`s to achieve this. A command is a high level concept used by world builders to bestow efficacy on the players.
 
 **Example:**
 
@@ -50,7 +50,7 @@ const LightSource = Thing.define({
 })
 ```
 
-`Trait`s determine how things can be used. In the example above, we have defined a new thing, a light source, which can be wielded by characters (granted they possess the right body parts.) We can use our new thing to construct new light sources.
+`Trait`s determine how things can be used. In the example above, we have defined a new thing, a light source, which can be wielded by characters (granted they possess the appropriate body parts.) We can use our new thing to construct new light sources.
 
 **Example:**
 
@@ -60,7 +60,7 @@ const candle = Light.build({ brightness: 1 })
 
 ### Making Sense of the World
 
-Everything that happens in the world is experienced through the eyes (or ears, nose, tendrils, etc.) of a `Character`. Each character is equipped with a set of senses which, in addition to an inherent acuity, can be altered through various effects. For example, a dirt kick might temporarily impair a character's sight.
+Everything that happens in the world is experienced through the eyes (or ears, nose, tendrils, etc.) of a `Character`. Each character is equipped with a set of senses which, in addition to an inherent acuity, can be altered through various effects. For example, a dirt kick might temporarily impair a character's sight, or a room may be darkened by some gloomy magic.
 
 Fear not, however! Even when blinded, you are not rendered unaware of the surroundings. Given that your hearing is still intact, you can still have a good sense of the impending doom. Some characters can also have a natural affinity for sensing certain stimuli. For example a tunnel trogg, given it has spent most of its life underground, may have very poor eyesight, but make up for it with a very keen sense of smell.
 
@@ -75,7 +75,11 @@ const knock = SensoryEvent.create([
 ])
 ```
 
-In the example above, knocking on a door will result in a sensory event targeting sight and hearing inside the room where the knock happens. (So far I am unaware of any cases where someone was able to smell or taste a knock on a door.) Since one can normally not hear *who* is knocking on a door, the contextual information of the actor is not included in the message targeting hearing. In the case of a knock, we would normally emit an event targeting only hearing to the connecting room as well.
+In this example, knocking on a door will result in a sensory event targeting sight and hearing inside the room where the knock happens. (So far I am unaware of any cases where someone was able to smell or taste a knock on a door.) Since one can normally not hear *who* is knocking on a door, the contextual information of the actor is not included in the message targeting hearing. In the case of a knock, we would normally emit an event targeting only hearing to the connecting room as well.
+
+#### Resolving Sensory Events
+
+All recipients may not perceive some event the same way. Upon resolution, `SensoryEvent`s therefore need to be contextualized with the point of view of the character experiencing it. This allows taking into account any circumstances of the recipient.
 
 ## Testing
 
