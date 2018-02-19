@@ -77,6 +77,10 @@ const knock = SensoryEvent.create([
 
 In this example, knocking on a door will result in a sensory event targeting sight and hearing inside the room where the knock happens. (So far I am unaware of any cases where someone was able to smell or taste a knock on a door.) Since one can normally not hear *who* is knocking on a door, the contextual information of the actor is not included in the message targeting hearing. In the case of a knock, we would normally emit an event targeting only hearing to the connecting room as well.
 
+#### Resolving Sensory Events
+
+All recipients may not perceive some event the same way. Upon resolution, `SensoryEvent`s therefore need to be contextualized with the point of view of the character experiencing it. This allows taking into account any circumstances of the recipient.
+
 ## Testing
 
 You can easily run the test suite by invoking `npm test`.
