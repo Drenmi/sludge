@@ -13,7 +13,7 @@ describe("SensoryEvent", function() {
     const character = Character.build({ senses: { "SIGHT": { acuity: 100 } } })
 
     it("forwards the sensory event to the character", function() {
-      event(character)
+      event.resolve(character)
 
       expect(character).to.see("An ogre stands in the middle of the room.")
     })
@@ -26,7 +26,7 @@ describe("SensoryEvent", function() {
     const character = Character.build({ senses: { "SIGHT": { acuity: 40 } } })
 
     it("does not forward the sensory event to the character", function() {
-      event(character)
+      event.resolve(character)
 
       expect(character).to.see.nothing
     })
