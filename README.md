@@ -70,8 +70,8 @@ This is made possible through the emission of `SensoryEvent`s. Data packages whi
 
 ```javascript
 const knock = SensoryEvent.create([
-  { sense: "SIGHT", magnitude: 100, message: "${actor} knocks on ${target}" },
-  { sense: "HEARING", magnitude: 70, message: "Someone knocks on ${target}" }
+  { sense: "SIGHT", magnitude: 100, message: ({ actor, target }) => `${actor.name} knocks on ${target}` },
+  { sense: "HEARING", magnitude: 70, message: ({ target }) => `Someone knocks on ${target}` }
 ])
 ```
 

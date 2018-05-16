@@ -10,13 +10,16 @@ const DEFAULT_SENSES = {
 
 const Character = Thing.define({
   attributes: {
+    name: "",
     isAlive: true,
     isAwake: true,
     senses: DEFAULT_SENSES,
     impressions: []
   },
   methods: {
-    send: function(event) { this.impressions.push(event) }
+    perceive: function(event) {
+      this.impressions.push(event)
+    }
   }
 })
 

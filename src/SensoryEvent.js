@@ -2,12 +2,12 @@ const _ = require("lodash")
 
 function create(impressions) {
   return {
-    resolve: function(character) {
+    resolve: function(receiver, context = {}) {
       _.each(impressions, ({ sense, magnitude, message }) => {
-        const threshold = 100 - character.senses[sense].acuity
+        const threshold = 100 - receiver.senses[sense].acuity
 
         if(magnitude >= threshold) {
-          return character.send({ sense, message })
+          receiver.perceive({ sense, message: message(context) })
         }
       })
     }
