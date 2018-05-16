@@ -3,7 +3,7 @@ require("./support/helpers")
 const { expect } = require("chai")
 
 const SensoryEvent = require("../src/SensoryEvent")
-const Character = require("../src/character")
+const Character = require("../src/Character")
 
 describe("SensoryEvent", function() {
   context("when receiver is powerful enough to experience event", function() {
