@@ -6,7 +6,7 @@ Sludge is a tool for building text based virtual worlds. It is inspired by old w
 
 *Note: This is very much work in progress. Many of the things outlines below are not yet implemented, and are subject to change at a moment's notice.*
 
-Sludge is intended for rapid creation of virtual worlds. It is designed to be fun to use. User productivity is of top priority, and clean mental models and an expressive and intuitive public API are important design objectives. The framework is primarily data driven, with support for sophisticated users to extend it using custom code.
+Sludge is intended for rapid creation of virtual worlds. It is designed to be fun to use. User productivity is a top priority, and clean mental models coupled with an expressive and intuitive public API is an important design objective. The framework is primarily data driven, with support for sophisticated users to extend it using custom code.
 
 ### Topography
 
@@ -16,7 +16,7 @@ To put a spanner in the works of an unfortunate adventurer, exits can be fitted 
 
 ### Command and Conquer
 
-A world would not be very interesting without the ability for characters to act upon it. Whether your inclination is exploring, socialising, or just mindless killing, you need means to express those actions. Sludge uses the concept of `Command`s to achieve this. A command is a high level concept used by world builders to bestow efficacy on the players.
+A world would not be very interesting without the ability for characters to act upon it. Whether you are inclined towards exploring, socialising, or just mindless killing, you need the means to express those actions. Sludge uses the concept of `Command`s to achieve this. A command is a high level construct used by world builders to bestow efficacy on the players.
 
 **Example:**
 
@@ -31,7 +31,7 @@ const Knock = Command.register({
 })
 ```
 
-A command is required to pass a number of `Guard`s before successful. In the case of knocking on a door, shown above, for the knocking to be successful, the actor must be both alive and awake, the direction must be a valid one, and there needs to be an exit in that direction.
+A command is required to pass a number of `Guard`s before succeeding. In the case of knocking on a door, as shown above, for the knocking to be successful, the actor must be both alive and awake, the specified direction must be a cardinal direction, and there needs to be an exit that way.
 
 ### Unified Thing Theory
 
