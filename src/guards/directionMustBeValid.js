@@ -1,4 +1,4 @@
-const { Direction } = require("../world")
+const { Direction } = require("../World")
 
 function directionMustBeValid(actor, { direction }) {
   const MESSAGE = `Move where?`

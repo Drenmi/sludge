@@ -1,5 +1,7 @@
 # Sludge
 
+[![Build Status](https://travis-ci.com/Drenmi/sludge.svg?branch=master)](https://travis-ci.com/Drenmi/sludge)
+
 Sludge is a tool for building text based virtual worlds. It is inspired by old world [MUD](https://en.wikipedia.org/wiki/MUD)s, but built with modern JavaScript.
 
 ## Design & Goals
