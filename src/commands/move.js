@@ -3,7 +3,11 @@ const Guard = require("../Guard")
 const SensoryEvent = require("../SensoryEvent")
 
 const moveEvent = SensoryEvent.create([
-  { sense: "SIGHT", magnitude: 100, message: `Someone leaves.` }
+  {
+    sense: "SIGHT",
+    magnitude: 100,
+    message: (actor) => `${actor} leaves.`
+  }
 ])
 
 const Move = Command.create({

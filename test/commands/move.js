@@ -11,7 +11,7 @@ describe("MoveCommand", function() {
   context("when the room has an exit in the given direction", function() {
     const room = Room.build({ exits: { north: "foo" } })
     const character = Character.build({ room })
-    const result = MoveCommand(character, { direction: "north" })
+    const result = MoveCommand.issue(character, { direction: "north" })
 
     it("moves the character through the exit", function() {
       expect(result).to.eql("Yay!")
@@ -23,7 +23,7 @@ describe("MoveCommand", function() {
     const character = Character.build({ room })
 
     it("exclaims there is no exit in the given direction", function() {
-      MoveCommand(character, { direction: "south" })
+      MoveCommand.issue(character, { direction: "south" })
 
       expect(character).to.notice("There is no exit south of here.")
     })
@@ -34,7 +34,7 @@ describe("MoveCommand", function() {
     const character = Character.build({ room, isAlive: false })
 
     it("exclaims the character is dead", function() {
-      MoveCommand(character, { direction: "north" })
+      MoveCommand.issue(character, { direction: "north" })
 
       expect(character).to.notice("You are dead ...")
     })
@@ -45,7 +45,7 @@ describe("MoveCommand", function() {
     const character = Character.build({ room, isAwake: false })
 
     it("exclaims the character is not awake", function() {
-      MoveCommand(character, { direction: "north" })
+      MoveCommand.issue(character, { direction: "north" })
 
       expect(character).to.notice("You are asleep ...")
     })
