@@ -17,7 +17,7 @@ const Character = Thing.define({
     senses: DEFAULT_SENSES,
     impressions: []
   },
-  methods: {
+  actions: {
     perceive: function(event) {
       this.impressions.push(event)
     }

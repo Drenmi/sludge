@@ -10,10 +10,21 @@ function assignAttributes(attributes, options) {
   }
 }
 
-function define({ attributes = {}, methods = {} }) {
+function combineObjects(sources) {
+  return _.reduce(sources, function(attributes, source) {
+    return _.merge(attributes, _.cloneDeep(source))
+  })
+}
+
+function define({ traits = [], attributes = {}, actions = {} }) {
+  const attributesFromTraits = _.map(traits, (trait) => (trait.attributes))
+  const actionsFromTraits = _.map(traits, (trait) => (trait.actions))
+  const combinedAttributes = combineObjects(_.concat(attributesFromTraits, attributes))
+  const combinedActions = combineObjects(_.concat(actionsFromTraits, actions))
+
   return {
     build: function(options) {
-      return _.create(methods, assignAttributes(attributes, options))
+      return _.create(combinedActions, assignAttributes(combinedAttributes, options))
     }
   }
 }
