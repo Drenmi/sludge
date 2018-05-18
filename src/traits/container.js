@@ -1,6 +1,7 @@
 const _ = require("lodash")
 
 const Container = {
+  name: "container",
   attributes: {
     contents: []
   },

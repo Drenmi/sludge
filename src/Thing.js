@@ -23,7 +23,9 @@ function define({ traits = [], attributes = {}, actions = {} }) {
   return {
     build: function(attributes) {
       return _.create(thing.actions, assignAttributes(thing.attributes, attributes))
-    }
+    },
+    attributes: _.keys(attributes),
+    traits: _.map(traits, "name")
   }
 }
 
