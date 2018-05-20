@@ -17,15 +17,17 @@ function combineThing(traits) {
 }
 
 function define({ traits = [], attributes = {}, actions = {} }) {
-  const inherentTrait = { attributes, actions }
-  const thing = combineThing(_.concat(inherentTrait, traits))
+  const thing = combineThing(_.concat({ attributes, actions }, traits))
 
   return {
     build: function(attributes) {
       return _.create(thing.actions, assignAttributes(thing.attributes, attributes))
     },
     attributes: _.keys(attributes),
-    traits: _.map(traits, "name")
+    traits: _.map(traits, "name"),
+    kindOf: function(trait) {
+      return _.includes(this.traits, trait)
+    }
   }
 }
 

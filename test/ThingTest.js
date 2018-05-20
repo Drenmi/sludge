@@ -47,4 +47,22 @@ describe("Thing", function() {
       })
     })
   })
+
+  describe("#kindOf", function() {
+    context("when argument matches one of the traits", function() {
+      const thing = Thing.define({ traits: [Container] })
+
+      it("returns true", function() {
+        expect(thing.kindOf("container")).to.be.true
+      })
+    })
+
+    context("when argument does not match any of the traits", function() {
+      const thing = Thing.define({ traits: [] })
+
+      it("returns false", function() {
+        expect(thing.kindOf("container")).to.be.false
+      })
+    })
+  })
 })
