@@ -16,23 +16,28 @@ function combineThing(traits) {
   })
 }
 
-function define({ traits = [], attributes = {}, actions = {} }) {
-  const thing = combineThing(_.concat({ attributes, actions }, traits))
+const ThingFactory = function({ traits, attributes, actions }) {
+  const blueprint = combineThing(_.concat({ attributes, actions }, traits))
 
-  return {
-    build: function(attributes) {
-      return _.create(thing.actions, assignAttributes(thing.attributes, attributes))
-    },
-    attributes: _.keys(attributes),
-    traits: _.map(traits, "name"),
-    kindOf: function(trait) {
-      return _.includes(this.traits, trait)
-    }
+  const kindOf = (trait) => _.some(traits, { name: trait })
+
+  const blueprintMethods = {
+    attributes,
+    traits,
+    kindOf
   }
+
+  const proto = _.merge(blueprintMethods, blueprint.actions)
+
+  const build = (attributes) => _.create(proto, assignAttributes(blueprint.attributes, attributes))
+
+  return _.merge({ build }, blueprintMethods)
 }
 
 const Thing = {
-  define
+  define({ traits = [], attributes = {}, actions = {} }) {
+    return ThingFactory({ traits, attributes, actions })
+  }
 }
 
 module.exports = Thing

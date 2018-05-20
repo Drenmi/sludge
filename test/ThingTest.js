@@ -1,7 +1,7 @@
 const { expect } = require("chai")
 
 const Thing = require("../src/Thing")
-const Container = require("../src/traits/Container")
+const Container = require("../src/traits/container")
 
 describe("Thing", function() {
   describe("#attributes", function() {
@@ -17,7 +17,7 @@ describe("Thing", function() {
       const thing = Thing.define({ attributes: { brightness: 1 } })
 
       it("lists the names of its attributes", function() {
-        expect(thing.attributes).to.contain("brightness")
+        expect(thing.attributes).to.contain.key("brightness")
       })
     })
 
@@ -25,7 +25,7 @@ describe("Thing", function() {
       const thing = Thing.define({ traits: [Container] })
 
       it("lists the names of the inherited attributes", function() {
-        expect(thing.attributes).to.contain("contents")
+        expect(thing.attributes).to.contain.key("contents")
       })
     })
   })
@@ -43,7 +43,7 @@ describe("Thing", function() {
       const thing = Thing.define({ traits: [Container] })
 
       it("lists the names of its traits", function() {
-        expect(thing.traits).to.contain("container")
+        expect(thing.traits).to.deep.include(Container)
       })
     })
   })
