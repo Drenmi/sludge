@@ -16,7 +16,7 @@ describe("Bag", function() {
       const bag = Bag.build({ contents: ["foo"] })
 
       it("contains the contents it was initialized with", function() {
-        expect(bag.contents).to.include("foo")
+        expect(bag.contents).to.contain("foo")
       })
     })
   })
@@ -27,7 +27,7 @@ describe("Bag", function() {
     it("puts the thing in the bag", function() {
       bag.add("foo")
 
-      expect(bag.contents).to.include("foo")
+      expect(bag.contents).to.contain("foo")
     })
   })
 
@@ -37,7 +37,7 @@ describe("Bag", function() {
     it("removes the thing from the bag", function() {
       bag.remove("foo")
 
-      expect(bag.contents).not.to.include("foo")
+      expect(bag.contents).not.to.contain("foo")
     })
   })
 })

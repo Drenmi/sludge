@@ -8,7 +8,7 @@ describe("Room", function() {
       const room = Room.build()
 
       it("has keys for all cardinal directions", function() {
-        expect(room.exits).to.have.all.keys(["north", "east", "south", "west", "up", "down"])
+        expect(room.exits).to.have.all.keys("north", "east", "south", "west", "up", "down")
       })
     })
 
