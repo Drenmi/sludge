@@ -15,7 +15,8 @@ const Character = Thing.define({
     isAlive: true,
     isAwake: true,
     senses: DEFAULT_SENSES,
-    impressions: []
+    impressions: [],
+    inventory: []
   },
   actions: {
     perceive: function(event) {

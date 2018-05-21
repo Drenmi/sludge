@@ -66,3 +66,11 @@ Assertion.addProperty("something", function() {
     `expected character to not ${presentTenseVerb} something`
   )
 })
+
+Assertion.addMethod('kindOf', function (trait) {
+  this.assert(
+    this._obj.kindOf(trait) === true,
+    `expected thing to be a kind of ${trait}`,
+    `expected thing to not be a kind of ${trait}`
+  )
+})
