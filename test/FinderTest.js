@@ -15,6 +15,12 @@ describe("Finder", function() {
       const room = Room.build({ contents: [bag] })
       const character = Character.build({ room: room })
 
+      context("when matching the entire name", function() {
+        it("finds the bag", function() {
+          expect(finder.find(character, "magic pouch")).to.eq(bag)
+        })
+      })
+
       context("when matching the entire first part of the name", function() {
         it("finds the bag", function() {
           expect(finder.find(character, "magic")).to.eq(bag)
