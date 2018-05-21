@@ -89,5 +89,13 @@ describe("Thing", function() {
         expect(thing.kindOf("container")).to.be.false
       })
     })
+
+    context("when called on an instance of the factory", function() {
+      const thing = Thing.define({ traits: [Container] })
+
+      it("returns true", function() {
+        expect(thing.build().kindOf("container")).to.be.true
+      })
+    })
   })
 })
