@@ -1,3 +1,5 @@
+require("./support/helpers")
+
 const { expect } = require("chai")
 
 const Thing = require("../src/Thing")
@@ -74,11 +76,19 @@ describe("Thing", function() {
   })
 
   describe("#kindOf", function() {
+    context("when argument is thing", function() {
+      const thing = Thing.define({})
+
+      it("returns true", function() {
+        expect(thing).to.be.a.kindOf("thing")
+      })
+    })
+
     context("when argument matches one of the traits", function() {
       const thing = Thing.define({ traits: [Container] })
 
       it("returns true", function() {
-        expect(thing.kindOf("container")).to.be.true
+        expect(thing).to.be.a.kindOf("container")
       })
     })
 
@@ -86,15 +96,15 @@ describe("Thing", function() {
       const thing = Thing.define({ traits: [Equippable] })
 
       it("returns false", function() {
-        expect(thing.kindOf("container")).to.be.false
+        expect(thing).not.to.be.a.kindOf("container")
       })
     })
 
-    context("when called on an instance of the factory", function() {
-      const thing = Thing.define({ traits: [Container] })
+    context("when called on an instance of the thing", function() {
+      const thing = Thing.define({ traits: [Container] }).build()
 
       it("returns true", function() {
-        expect(thing.build().kindOf("container")).to.be.true
+        expect(thing).to.be.a.kindOf("container")
       })
     })
   })

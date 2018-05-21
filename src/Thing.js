@@ -27,7 +27,7 @@ function combineThing(...traits) {
 const ThingFactory = function({ traits, attributes, actions }) {
   const blueprint = combineThing({ attributes, actions }, THING_TRAIT, ...traits)
 
-  const kindOf = (trait) => _.some(traits, { name: trait })
+  const kindOf = (trait) => _.some([THING_TRAIT, ...traits], { name: trait })
 
   const blueprintMethods = {
     attributes,
