@@ -1,5 +1,13 @@
 const _ = require("lodash")
 
+const THING_TRAIT = {
+  name: "thing",
+  attributes: {
+    name: "",
+    description: ""
+  }
+}
+
 function assignAttributes(attributes, options) {
   const unknownAttributes = _.difference(_.keys(options), _.keys(attributes))
 
@@ -10,14 +18,14 @@ function assignAttributes(attributes, options) {
   }
 }
 
-function combineThing(traits) {
+function combineThing(...traits) {
   return _.reduce(traits, function(thing, trait) {
     return _.merge(thing, _.cloneDeep(trait))
   })
 }
 
 const ThingFactory = function({ traits, attributes, actions }) {
-  const blueprint = combineThing(_.concat({ attributes, actions }, traits))
+  const blueprint = combineThing({ attributes, actions }, THING_TRAIT, ...traits)
 
   const kindOf = (trait) => _.some(traits, { name: trait })
 

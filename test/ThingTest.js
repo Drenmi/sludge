@@ -2,14 +2,15 @@ const { expect } = require("chai")
 
 const Thing = require("../src/Thing")
 const Container = require("../src/traits/container")
+const Equippable = require("../src/traits/equippable")
 
 describe("Thing", function() {
   describe("#attributes", function() {
     context("when defined without attributes", function() {
       const thing = Thing.define({})
 
-      it("does not list any attributes", function() {
-        expect(thing.attributes).to.be.empty
+      it("lists the default attributes", function() {
+        expect(thing.attributes).to.contain.keys("name", "description")
       })
     })
 
@@ -21,11 +22,27 @@ describe("Thing", function() {
       })
     })
 
-    context("when inheriting attributes from traits", function() {
+    context("when inheriting attributes from a single trait", function() {
       const thing = Thing.define({ traits: [Container] })
 
       it("lists the names of the inherited attributes", function() {
         expect(thing.attributes).to.contain.key("contents")
+      })
+    })
+
+    context("when inheriting attributes from several traits", function() {
+      const thing = Thing.define({ traits: [Container, Equippable] })
+
+      it("lists the names of the inherited attributes", function() {
+        expect(thing.attributes).to.contain.keys("contents", "slot")
+      })
+    })
+
+    context("when defined with- and inheriting attributes from a trait", function() {
+      const thing = Thing.define({ attributes: { name: "a bag" }, traits: [Container] })
+
+      it("lists both the defined and inherited attributes", function() {
+        expect(thing.attributes).to.contain.keys("name", "contents")
       })
     })
   })
@@ -39,11 +56,19 @@ describe("Thing", function() {
       })
     })
 
-    context("when defined with traits", function() {
+    context("when defined with a single trait", function() {
       const thing = Thing.define({ traits: [Container] })
 
-      it("lists the names of its traits", function() {
+      it("lists the trait", function() {
         expect(thing.traits).to.deep.include(Container)
+      })
+    })
+
+    context("when defined with several traits", function() {
+      const thing = Thing.define({ traits: [Container, Equippable] })
+
+      it("lists all the traits", function() {
+        expect(thing.traits).to.deep.include(Container, Equippable)
       })
     })
   })
@@ -58,7 +83,7 @@ describe("Thing", function() {
     })
 
     context("when argument does not match any of the traits", function() {
-      const thing = Thing.define({ traits: [] })
+      const thing = Thing.define({ traits: [Equippable] })
 
       it("returns false", function() {
         expect(thing.kindOf("container")).to.be.false
