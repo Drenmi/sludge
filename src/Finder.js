@@ -20,11 +20,19 @@ function targetNameMatch(target, name) {
   return strongMatch(target, name) || weakMatch(target, name)
 }
 
+function filterCandidates(actor, scopes, targets) {
+  return _.flatMap(scopes, (scope) => {
+    return _.filter(actor[scope].contents, (thing) => {
+      return _.some(targets, (target) => thing.kindOf(target))
+    })
+  })
+}
+
 const Finder = {
-  create({ scope, target }) {
+  create({ scopes, targets }) {
     return {
       find: function(actor, name) {
-        const candidates = _.filter(actor[scope].contents, (thing) => thing.kindOf(target))
+        const candidates = filterCandidates(actor, scopes, targets)
 
         return _.find(candidates, (candidate) => targetNameMatch(candidate, name))
       }
