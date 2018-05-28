@@ -12,7 +12,7 @@ describe("Thing", function() {
       const thing = Thing.define({})
 
       it("lists the default attributes", function() {
-        expect(thing.attributes).to.contain.keys("name", "description")
+        expect(thing.attributes).to.contain.keys("id", "name", "description")
       })
     })
 
