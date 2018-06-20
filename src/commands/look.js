@@ -5,6 +5,7 @@ const Guard = require("../Guard")
 const finder = Finder.create({ scope: "room", target: "thing" })
 
 const Move = Command.create({
+  name: "look",
   arguments: [
     { tag: "target", finder }
   ],
