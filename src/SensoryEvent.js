@@ -1,5 +1,10 @@
 const _ = require("lodash")
 
+/**
+ * Creates a new `SensoryEvent` to be perceived by actors. It takes a list of
+ * impressions, one per targeted sense, which are resolved in order of priority
+ * of the receiver.
+ */
 function create(impressions) {
   return {
     resolve: function(receiver, context = {}) {
@@ -14,6 +19,9 @@ function create(impressions) {
   }
 }
 
+/**
+ * Public API for `SensoryEvent`.
+ */
 const SensoryEvent = {
   create
 }
