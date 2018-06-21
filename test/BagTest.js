@@ -24,20 +24,40 @@ describe("Bag", function() {
   describe("#add", function() {
     const bag = Bag.build()
 
-    it("puts the thing in the bag", function() {
-      bag.add("foo")
+    context("when adding a single thing", function() {
+      it("puts the thing in the bag", function() {
+        bag.add("foo")
 
-      expect(bag.contents).to.contain("foo")
+        expect(bag.contents).to.contain("foo")
+      })
+    })
+
+    context("when adding multiple things", function() {
+      it("puts the thing in the bag", function() {
+        bag.add("bar", "baz")
+
+        expect(bag.contents).to.contain("bar", "baz")
+      })
     })
   })
 
   describe("#remove", function() {
-    const bag = Bag.build({ contents: ["foo"] })
+    const bag = Bag.build({ contents: ["foo", "bar", "baz"] })
 
-    it("removes the thing from the bag", function() {
-      bag.remove("foo")
+    context("when removing a single thing", function() {
+      it("removes the thing from the bag", function() {
+        bag.remove("foo")
 
-      expect(bag.contents).not.to.contain("foo")
+        expect(bag.contents).not.to.contain("foo")
+      })
+    })
+
+    context("when removing multiple things", function() {
+      it("removes the things from the bag", function() {
+        bag.remove("bar", "baz")
+
+        expect(bag.contents).not.to.contain("bar", "baz")
+      })
     })
   })
 })

@@ -6,11 +6,11 @@ const Container = {
     contents: []
   },
   actions: {
-    add: function(thing) {
-      this.contents.push(thing)
+    add: function(...things) {
+      _.each(things, (thing) => this.contents.push(thing))
     },
-    remove: function(thing) {
-      _.pull(this.contents, thing)
+    remove: function(...things) {
+      _.each(things, (thing) => _.pull(this.contents, thing))
     }
   }
 }

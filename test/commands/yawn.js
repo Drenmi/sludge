@@ -13,8 +13,7 @@ describe("YawnCommand", function() {
     const actor = Character.build({ name: "Yoda", room })
     const observer = Character.build({ name: "Obi-Wan",room })
 
-    room.add(actor)
-    room.add(observer)
+    room.add(actor, observer)
 
     it("appears to the observer that the actor is yawning", function() {
       YawnCommand.issue(actor)
