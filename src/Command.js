@@ -26,7 +26,7 @@ function create({ name, guards = [], onSuccess = DEFAULT_SUCCESS_CALLBACK, onFai
       if(failure) {
         return onFailure(actor, failure)
       } else {
-        return onSuccess()
+        return onSuccess({ actor })
       }
     }
   }
