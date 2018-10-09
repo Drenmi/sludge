@@ -124,7 +124,7 @@ describe("Thing", function() {
       const builder = () => thing.build({ slot: "Hand" })
   
       it("assigns the attributes", function() {
-        expect(builder).to.throw
+        expect(builder).to.throw("Unknown attributes: slot")
       })
     })
   })
