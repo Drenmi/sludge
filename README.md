@@ -2,23 +2,23 @@
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/dfe3864a34b96d1ad8f5/maintainability)](https://codeclimate.com/github/Drenmi/sludge/maintainability)[![Test Coverage](https://api.codeclimate.com/v1/badges/dfe3864a34b96d1ad8f5/test_coverage)](https://codeclimate.com/github/Drenmi/sludge/test_coverage)
 
-Sludge is a tool for building text based virtual worlds. It is inspired by old world [MUD](https://en.wikipedia.org/wiki/MUD)s, but built with modern JavaScript.
+Sludge is a framework for building text based virtual worlds. It is inspired by old world [MUD](https://en.wikipedia.org/wiki/MUD)s, but built with modern JavaScript.
 
 ## Design & Goals
 
 *Note: This is very much work in progress. Many of the things outlines below are not yet implemented, and are subject to change at a moment's notice.*
 
-Sludge is intended for rapid creation of virtual worlds. It is designed to be fun to use. User productivity is a top priority, and clean mental models coupled with an expressive and intuitive public API is an important design objective. The framework is primarily data driven, with support for sophisticated users to extend it using custom code.
+Sludge is intended for the rapid creation of virtual worlds. It is designed to be fun to use, hence user productivity is a top priority. Clean mental models and an expressive and intuitive public API are important design objectives. The framework is primarily data driven, with some support for sophisticated users to extend it using custom code.
 
 ### Topography
 
 A Sludge `World` is entirely made up of `Room`s. These can be subdivided into `Area`s, which allow the world to have different biomes with local weather conditions. Rooms are connected by `Path`s, which are accessed through endpoints such as `Exit`s or `Portal`s.
 
-To put a spanner in the works of an unfortunate adventurer, exits can be fitted with furniture such as a `Door` or a `Gate`, or perhaps something even cooler like a `Firewall`. (Not that firewalls are known for being particularly cool.)
+To put a spanner in the works of an unfortunate adventurer, exits can be fitted with furniture such as a `Door` or a `Gate`, or perhaps something even cooler like a `Firewall`. (Not that firewalls are known for being particularly cool.) Furniture can in turn come with further complications, such as a `Lock`.
 
-### Command and Conquer
+### Command & Conquer
 
-A world would not be very interesting without the ability for characters to act upon it. Whether you are inclined towards exploring, socialising, or just mindless killing, you need the means to express those actions. Sludge uses the concept of `Command`s to achieve this. A command is a high level construct used by world builders to bestow efficacy on the players.
+A world would not be very interesting without the ability for characters to act upon it. Whether your inclination is towards exploring, socialising, or just mindless killing, you need the means to express those actions. Sludge uses the concept of `Command`s to achieve this. A command is a high level construct used by world builders to bestow efficacy on the players.
 
 **Example:**
 
@@ -33,11 +33,11 @@ const Knock = Command.register({
 })
 ```
 
-A command is required to pass a number of `Guard`s before succeeding. In the case of knocking on a door, as shown above, for the knocking to be successful, the actor must be both alive and awake, the specified direction must be a cardinal direction, and there needs to be an exit that way.
+A command is required to pass a number of `Guard`s before succeeding. In the case of knocking on a door, as shown above, for the knocking to be successful, the actor must be both alive and awake, the specified direction must be a cardinal direction, and there needs to be an exit leading that way.
 
 ### Unified Thing Theory
 
-A lot of things in the Sludge world are ... well, `Thing`s. This is a common enough occurrence that it deserves a first class concept in the framework. Doors, exits, players, demogorgons, and enchanted sticks are all things. Using the `Thing` API, we can create factories ready to churn out new things.
+A lot of things in the Sludge world are ... well, `Thing`s. It is a common enough occurrence that we decided it deserves a first class concept in the framework. Doors, exits, players, demogorgons, and enchanted sticks are all things. Using the `Thing` API, we can create factories ready to churn out new things.
 
 **Example:**
 
@@ -52,7 +52,7 @@ const LightSource = Thing.define({
 })
 ```
 
-`Trait`s determine how things can be used. In the example above, we have defined a new thing, a light source, which can be wielded by characters (granted they possess the appropriate body parts.) We can use our new thing to construct new light sources.
+`Trait`s determine how things can be used. In the example above, we have defined a new thing, a light source, which can be wielded by characters (granted they possess the appropriate body parts.) We can use our new thing factory to construct new light sources.
 
 **Example:**
 
@@ -62,11 +62,11 @@ const candle = Light.build({ brightness: 1 })
 
 ### Making Sense of the World
 
-Everything that happens in the world is experienced through the eyes (or ears, nose, tendrils, etc.) of a `Character`. Each character is equipped with a set of senses which, in addition to an inherent acuity, can be altered through various effects. For example, a dirt kick might temporarily impair a character's sight, or a room may be darkened by some gloomy magic.
+Everything that happens in the world is experienced through the eyes (or ears, nose, tendrils, etc.) of a `Character`. Each character is equipped with a set of senses which, in addition to an inherent acuity, can be altered through various effects. For example, a dirt kick, or a room may be darkened by some gloomy magic, might temporarily impair a character's sight.
 
-Fear not, however! Even when blinded, you are not rendered unaware of the surroundings. Given that your hearing is still intact, you can still have a good sense of the impending doom. Some characters can also have a natural affinity for sensing certain stimuli. For example a tunnel trogg, given it has spent most of its life underground, may have very poor eyesight, but make up for it with a very keen sense of smell.
+Fear not, however! Even when blinded, you are not rendered unaware of your surroundings. Given that your hearing is still intact, you can get a good sense of the impending doom. Some characters can also have a natural affinity for sensing certain stimuli. For example a tunnel trogg, given it has spent most of its life underground, may have very poor eyesight, but make up for it with a very keen sense of smell.
 
-This is made possible through the emission of `SensoryEvent`s. Data packages which can be resolved for each character in the room in which it was emitted. A sensory event can target several senses at once, and are resolved in the order of priority inherent to the character's perception.
+This is made possible through the emission of `SensoryEvent`s. Data packages which can be resolved for each character in the room in which it was emitted (or nearby, in the case of especially powerful events.) A sensory event can target several senses at once, and are resolved in the order of priority inherent to the character's perception. For the sake of sanity, characters only experience sensory events through at most one sense.
 
 **Example:**
 
@@ -81,7 +81,7 @@ In this example, knocking on a door will result in a sensory event targeting sig
 
 #### Resolving Sensory Events
 
-All recipients may not perceive some event the same way. Upon resolution, `SensoryEvent`s therefore need to be contextualised with the point of view of the character experiencing it. This allows taking into account any circumstances of the recipient.
+All recipients may not perceive the same event in the same way. Upon resolution, `SensoryEvent`s therefore need to be contextualised with the point of view of the character experiencing it. This allows taking into account any circumstances of the recipient.
 
 **Example:**
 
