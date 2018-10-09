@@ -108,4 +108,24 @@ describe("Thing", function() {
       })
     })
   })
+
+  describe("#build", function() {
+    context("when passing only defined attributes", function() {
+      const thing = Thing.define({ attributes: { name: "Branch" } })
+      const staff = thing.build({ name: "Staff" })
+
+      it("assigns the attributes", function() {
+        expect(staff.name).to.eq("Staff")
+      })
+    })
+    
+    context("when passing an undefined attribute", function() {
+      const thing = Thing.define({ attributes: { name: "Branch" } })
+      const builder = () => thing.build({ slot: "Hand" })
+  
+      it("assigns the attributes", function() {
+        expect(builder).to.throw
+      })
+    })
+  })
 })
