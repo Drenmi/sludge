@@ -45,4 +45,20 @@ describe("SensoryEvent", function() {
       expect(receiver).to.see("Gandalf prancing around")
     })
   })
+
+  context("when the event is registered by multiple senses", function() {
+    const event = SensoryEvent.create([
+      { sense: "SIGHT",   magnitude: 60, message: ({ actor }) => `${actor.name} knocks on the door west of here` },
+      { sense: "HEARING", magnitude: 60, message: () => `someone knocks on a door` }
+    ])
+    const actor = Character.build({ name: "Frodo" })
+    const receiver = Character.build({ senses: { "SIGHT": { acuity: 40 }, "HEARING": { acuity: 40 } } })
+
+    it("forwards only the message to the prioritized sense", function() {
+      event.resolve(receiver, { actor })
+
+      expect(receiver).to.see("Frodo knocks on the door west of here")
+      expect(receiver).to.hear.nothing
+    })
+  })
 })

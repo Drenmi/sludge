@@ -13,6 +13,8 @@ function create(impressions) {
 
         if(magnitude >= threshold) {
           receiver.perceive({ sense, message: message(context) })
+
+          return false
         }
       })
     }
