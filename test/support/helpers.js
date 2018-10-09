@@ -2,12 +2,12 @@ const _ = require("lodash")
 
 const { Assertion, util } = require("chai")
 
-addSenseAssertion("NONE", "notice", "noticed")
-addSenseAssertion("SIGHT", "see", "saw")
-addSenseAssertion("HEARING", "hear", "heard")
-addSenseAssertion("TOUCH", "feel", "felt")
-addSenseAssertion("SMELL", "smell", "smelled")
-addSenseAssertion("TASTE", "taste", "tasted")
+addSenseAssertion("NONE",    "notice", "noticed")
+addSenseAssertion("SIGHT",   "see",    "saw")
+addSenseAssertion("HEARING", "hear",   "heard")
+addSenseAssertion("TOUCH",   "feel",   "felt")
+addSenseAssertion("SMELL",   "smell",  "smelled")
+addSenseAssertion("TASTE",   "taste",  "tasted")
 
 function addSenseAssertion(sense, presentTenseVerb, pastTenseVerb) {
   Assertion.addChainableMethod(presentTenseVerb, function(message) {
@@ -22,7 +22,7 @@ function addSenseAssertion(sense, presentTenseVerb, pastTenseVerb) {
     )
   },
   function() {
-    util.flag(this, "sense", "SIGHT")
+    util.flag(this, "sense", sense)
     // TODO: extract inflection methods
     util.flag(this, "presentTenseVerb", presentTenseVerb)
     util.flag(this, "pastTenseVerb", pastTenseVerb)
