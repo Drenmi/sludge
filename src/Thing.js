@@ -24,7 +24,7 @@ function assignAttributes(attributes, options) {
   if(_.isEmpty(unknownAttributes)) {
     return _.merge(_.cloneDeep(attributes), defaultAttributes, options)
   } else {
-    throw(`Unknown attributes: ${_.join(unknownAttributes, ", ")}`)
+    throw new Error(`Unknown attributes: ${_.join(unknownAttributes, ", ")}`)
   }
 }
 
