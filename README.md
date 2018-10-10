@@ -96,7 +96,7 @@ event.resolve(character)
 
 ## Testing
 
-You can easily run the test suite by invoking `npm test`.
+You can easily run the test suite by invoking `npm test`. (This will also run ESLint.)
 
 ### Custom Matchers
 

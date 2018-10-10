@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "nyc --reporter=lcov mocha --recursive",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "pretest": "npm run lint"
   },
   "keywords": [
     "MUD"
